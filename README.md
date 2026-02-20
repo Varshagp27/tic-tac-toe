@@ -48,4 +48,8 @@ If a player aligns three symbols horizontally, vertically, or diagonally, the wi
 New Game:
 Press the Reset button to clear the board and begin a fresh match.
 
+Example Screenshot:
+---
+<img width="600" height="600" alt="Screenshot 2026-02-20 194705" src="https://github.com/user-attachments/assets/01a6fc8c-d191-43ff-bfe9-6638e0a55202" />
+
 Enjoy playing! ❌⭕

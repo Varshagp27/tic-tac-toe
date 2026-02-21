@@ -7,7 +7,7 @@
 </head>
 <body>
   <h1>Tic Tac Toe</h1>
-
+<div class="main-content">
   <div class="board" id="board">
     <div class="cell" data-index="0"></div>
     <div class="cell" data-index="1"></div>
@@ -18,11 +18,29 @@
     <div class="cell" data-index="6"></div>
     <div class="cell" data-index="7"></div>
     <div class="cell" data-index="8"></div>
+    <div id="status">Player X's turn</div>
+  <button id="resetBtn">Reset Game</button>
   </div>
 
-  <div id="status">Player X's turn</div>
-  <button id="resetBtn">Reset Game</button>
-
+  
+  <div class="leaderboard">
+      <h3>🏆 Leaderboard</h3>
+      <div class="score-row">
+        <span>Player X</span>
+        <span id="scoreX">0</span>
+      </div>
+      <div class="score-row">
+        <span>Player O</span>
+        <span id="scoreO">0</span>
+      </div>
+      <div class="score-row">
+        <span>Draws</span>
+        <span id="scoreDraw">0</span>
+      </div>
+      <button id="resetScores">Reset Leaderboard</button>
+    </div>
+    
+</div>
   <script src="script.js"></script>
 </body>
 </html>

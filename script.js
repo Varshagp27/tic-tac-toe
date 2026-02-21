@@ -4,6 +4,11 @@ const resetBtn = document.getElementById("resetBtn");
 let currentPlayer = "X";
 let gameActive = true;
 let gameState = ["", "", "", "", "", "", "", "", ""];
+let scores = JSON.parse(localStorage.getItem("tttScores")) || {
+  X: 0,
+  O: 0,
+  draws: 0
+};
 
 const winningConditions = [
   [0, 1, 2],
@@ -45,15 +50,32 @@ function checkResult() {
     }
   }
   if (roundWon) {
-    statusText.innerText = `Player ${currentPlayer} wins!`;
-    gameActive = false;
-    return;
-  }
-  if (!gameState.includes("")) {
-    statusText.innerText = "It's a draw!";
-    gameActive = false;
-  }
+  statusText.innerText = `Player ${currentPlayer} wins!`;
+  scores[currentPlayer]++;
+  updateLeaderboard();
+  gameActive = false;
+  return;
 }
+ if (!gameState.includes("")) {
+  statusText.innerText = "It's a draw!";
+  scores.draws++;
+  updateLeaderboard();
+  gameActive = false;
+}
+}
+function updateLeaderboard() {
+  document.getElementById("scoreX").innerText = scores.X;
+  document.getElementById("scoreO").innerText = scores.O;
+  document.getElementById("scoreDraw").innerText = scores.draws;
+
+  localStorage.setItem("tttScores", JSON.stringify(scores));
+}
+
+document.getElementById("resetScores").addEventListener("click", () => {
+  scores = { X: 0, O: 0, draws: 0 };
+  localStorage.removeItem("tttScores"); // IMPORTANT
+  updateLeaderboard();
+});
 
 function resetGame() {
   gameActive = true;
@@ -65,3 +87,4 @@ function resetGame() {
 
 board.forEach(cell => cell.addEventListener("click", handleCellClick));
 resetBtn.addEventListener("click", resetGame);
+updateLeaderboard();

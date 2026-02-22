@@ -10,6 +10,11 @@ let playerNames = { "X": "Player 1", "O": "Player 2" };
 let currentPlayer = "X";
 let gameActive = false;
 let gameState = ["", "", "", "", "", "", "", "", ""];
+let scores = JSON.parse(localStorage.getItem("tttScores")) || {
+  X: 0,
+  O: 0,
+  draws: 0
+};
 
 const winningConditions = [
   [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
@@ -77,19 +82,33 @@ function checkResult() {
   }
 
   if (roundWon) {
-    statusText.innerText = `🎉 ${playerNames[currentPlayer]} Wins!`;
-    gameActive = false;
-    return true;
-  }
-
-  if (!gameState.includes("")) {
-    statusText.innerText = "🤝 It's a Draw!";
-    gameActive = false;
-    return true;
-  }
-
-  return false;
+  statusText.innerText = `Player ${currentPlayer} wins!`;
+  scores[currentPlayer]++;
+  updateLeaderboard();
+  gameActive = false;
+  return;
 }
+ if (!gameState.includes("")) {
+  statusText.innerText = "It's a draw!";
+  scores.draws++;
+  updateLeaderboard();
+  gameActive = false;
+
+}
+}
+function updateLeaderboard() {
+  document.getElementById("scoreX").innerText = scores.X;
+  document.getElementById("scoreO").innerText = scores.O;
+  document.getElementById("scoreDraw").innerText = scores.draws;
+
+  localStorage.setItem("tttScores", JSON.stringify(scores));
+}
+
+document.getElementById("resetScores").addEventListener("click", () => {
+  scores = { X: 0, O: 0, draws: 0 };
+  localStorage.removeItem("tttScores"); // IMPORTANT
+  updateLeaderboard();
+});
 
 // --- Reset & Navigation ---
 
@@ -97,11 +116,6 @@ function resetBoard() {
   startGame();
 }
 
-changeNamesBtn.addEventListener("click", () => {
-  gameContainer.style.display = "none";
-  setupContainer.style.display = "flex";
-  gameActive = false;
-});
-
-cells.forEach(cell => cell.addEventListener("click", handleCellClick));
-resetBtn.addEventListener("click", resetBoard);
+board.forEach(cell => cell.addEventListener("click", handleCellClick));
+resetBtn.addEventListener("click", resetGame);
+updateLeaderboard();

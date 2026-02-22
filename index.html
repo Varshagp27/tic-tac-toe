@@ -10,6 +10,7 @@
 
   <h1>Tic Tac Toe</h1>
 
+
   <div id="setup-container">
     <div class="input-group">
       <input type="text" id="p1Input" placeholder="Player X Name" maxlength="15">
@@ -37,8 +38,28 @@
       <button id="resetBtn">Reset Board</button>
       <button id="changeNamesBtn">Change Players</button>
     </div>
+
   </div>
 
+  
+  <div class="leaderboard">
+      <h3>🏆 Leaderboard</h3>
+      <div class="score-row">
+        <span>Player X</span>
+        <span id="scoreX">0</span>
+      </div>
+      <div class="score-row">
+        <span>Player O</span>
+        <span id="scoreO">0</span>
+      </div>
+      <div class="score-row">
+        <span>Draws</span>
+        <span id="scoreDraw">0</span>
+      </div>
+      <button id="resetScores">Reset Leaderboard</button>
+    </div>
+    
+</div>
   <script src="script.js"></script>
 </body>
 </html>
